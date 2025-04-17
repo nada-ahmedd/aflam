@@ -87,84 +87,84 @@ const Home = () => {
   const handlePrevTopSeries = () => setTopSeriesIndex(topSeriesIndex - 1);
 
   return (
-    <div style={{ backgroundColor: '#000', minHeight: '100vh', color: '#fff', padding: '20px' }}>
+    <div style={{ backgroundColor: '#1a1a1a', minHeight: '100vh', color: '#fff', padding: '40px 20px' }}>
       <Navbar />
-      <h1 className="text-center" style={{ color: 'cyan' }}>Home</h1>
+      <h1 className="text-center mb-5" style={{ color: 'cyan', fontSize: '2.5rem', fontWeight: '700' }}>Home</h1>
 
-      <div className="d-flex justify-content-center mb-4">
-        <div className="me-5">
-          <strong>SORT BY</strong>
-          <div className="d-flex mt-2">
-            <button className={`btn btn-outline-light me-2 ${sortBy === 'title' ? 'active' : ''}`} onClick={() => setSortBy('title')}>Title</button>
-            <button className={`btn btn-outline-light me-2 ${sortBy === 'popularity' ? 'active' : ''}`} onClick={() => setSortBy('popularity')}>Popularity</button>
-            <button className={`btn btn-outline-light me-2 ${sortBy === 'date' ? 'active' : ''}`} onClick={() => setSortBy('date')}>Date</button>
-            <button className={`btn btn-outline-light ${sortBy === 'rating' ? 'active' : ''}`} onClick={() => setSortBy('rating')}>Rating</button>
+      <div className="d-flex justify-content-center mb-5 gap-5">
+        <div>
+          <strong style={{ fontSize: '1.1rem' }}>SORT BY</strong>
+          <div className="d-flex mt-2 gap-2">
+            <button className={`btn btn-outline-light me-2 ${sortBy === 'title' ? 'active' : ''}`} onClick={() => setSortBy('title')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>Title</button>
+            <button className={`btn btn-outline-light me-2 ${sortBy === 'popularity' ? 'active' : ''}`} onClick={() => setSortBy('popularity')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>Popularity</button>
+            <button className={`btn btn-outline-light me-2 ${sortBy === 'date' ? 'active' : ''}`} onClick={() => setSortBy('date')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>Date</button>
+            <button className={`btn btn-outline-light ${sortBy === 'rating' ? 'active' : ''}`} onClick={() => setSortBy('rating')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>Rating</button>
           </div>
         </div>
         <div>
-          <strong>SORT ORDER</strong>
-          <div className="d-flex mt-2">
-            <button className={`btn btn-outline-light me-2 ${sortOrder === 'desc' ? 'active' : ''}`} onClick={() => setSortOrder('desc')}>Descending</button>
-            <button className={`btn btn-outline-light ${sortOrder === 'asc' ? 'active' : ''}`} onClick={() => setSortOrder('asc')}>Ascending</button>
+          <strong style={{ fontSize: '1.1rem' }}>SORT ORDER</strong>
+          <div className="d-flex mt-2 gap-2">
+            <button className={`btn btn-outline-light me-2 ${sortOrder === 'desc' ? 'active' : ''}`} onClick={() => setSortOrder('desc')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>Descending</button>
+            <button className={`btn btn-outline-light ${sortOrder === 'asc' ? 'active' : ''}`} onClick={() => setSortOrder('asc')} style={{ padding: '8px 16px', fontSize: '0.9rem' }}>Ascending</button>
           </div>
         </div>
       </div>
 
-      <h2 className="text-info mt-5">Movies</h2>
-      <div className="position-relative" style={{ width: '80%', margin: '0 auto' }}>
+      <h2 className="text-info mb-4" style={{ fontSize: '2rem', fontWeight: '600', marginTop: '20px' }}>Movies</h2>
+      <div className="carousel-container" style={{ position: 'relative', display: 'flex', overflow: 'hidden', width: '90%', margin: '0 auto', maxWidth: '1400px' }}>
         {sortedMovies.length > cardsPerPage && (
-          <button className="btn position-absolute top-50 start-0 translate-middle-y" onClick={handlePrevMovies} disabled={movieIndex === 0} style={{ zIndex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' }}>&lt;</button>
+          <button className="btn arrow arrow-left" onClick={handlePrevMovies} disabled={movieIndex === 0} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '-20px', zIndex: 10, backgroundColor: '#00bcd4', color: '#fff', padding: '12px 18px', fontSize: '1.8rem', borderRadius: '12px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', transition: 'background-color 0.3s, transform 0.3s', cursor: 'pointer' }}>{'←'}</button>
         )}
-        <div className="row flex-nowrap overflow-hidden">
+        <div className="row flex-nowrap overflow-auto" style={{ padding: '0 40px' }}>
           {sortedMovies.slice(movieIndex * cardsPerPage, (movieIndex + 1) * cardsPerPage).map(item => (
-            <div key={item.id} className="col-md-3 mb-4">
+            <div key={item.id} className="col-md-3 mb-4" style={{ minWidth: '280px', marginRight: '25px' }}>
               <Link to={`/details/movie/${item.id}`}>
-                <div className="card text-white" style={{ borderRadius: '10px', backgroundColor: '#000' }}>
-                  <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} style={{ borderRadius: '10px 10px 0 0' }} />
+                <div className="card text-white" style={{ borderRadius: '12px', overflow: 'hidden', backgroundColor: '#111' }}>
+                  <img className="img-fluid" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} style={{ borderRadius: '12px 12px 0 0', transition: 'transform 0.3s', width: '100%', height: '400px', objectFit: 'cover' }} />
                 </div>
               </Link>
             </div>
           ))}
         </div>
         {sortedMovies.length > cardsPerPage && (
-          <button className="btn position-absolute top-50 end-0 translate-middle-y" onClick={handleNextMovies} disabled={movieIndex * cardsPerPage + cardsPerPage >= sortedMovies.length} style={{ zIndex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' }}>&gt;</button>
+          <button className="btn arrow arrow-right" onClick={handleNextMovies} disabled={movieIndex * cardsPerPage + cardsPerPage >= sortedMovies.length} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: '-20px', zIndex: 10, backgroundColor: '#00bcd4', color: '#fff', padding: '12px 18px', fontSize: '1.8rem', borderRadius: '12px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', transition: 'background-color 0.3s, transform 0.3s', cursor: 'pointer' }}>{'→'}</button>
         )}
       </div>
 
-      <h2 className="text-info mt-5">Series</h2>
-      <div className="position-relative" style={{ width: '80%', margin: '0 auto' }}>
+      <h2 className="text-info mb-4 mt-5" style={{ fontSize: '2rem', fontWeight: '600', marginTop: '20px' }}>Series</h2>
+      <div className="carousel-container" style={{ position: 'relative', display: 'flex', overflow: 'hidden', width: '90%', margin: '0 auto', maxWidth: '1400px' }}>
         {sortedSeries.length > cardsPerPage && (
-          <button className="btn position-absolute top-50 start-0 translate-middle-y" onClick={handlePrevSeries} disabled={seriesIndex === 0} style={{ zIndex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' }}>&lt;</button>
+          <button className="btn arrow arrow-left" onClick={handlePrevSeries} disabled={seriesIndex === 0} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '-20px', zIndex: 10, backgroundColor: '#00bcd4', color: '#fff', padding: '12px 18px', fontSize: '1.8rem', borderRadius: '12px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', transition: 'background-color 0.3s, transform 0.3s', cursor: 'pointer' }}>{'←'}</button>
         )}
-        <div className="row flex-nowrap overflow-hidden">
+        <div className="row flex-nowrap overflow-auto" style={{ padding: '0 40px' }}>
           {sortedSeries.slice(seriesIndex * cardsPerPage, (seriesIndex + 1) * cardsPerPage).map(item => (
-            <div key={item.id} className="col-md-3 mb-4">
+            <div key={item.id} className="col-md-3 mb-4" style={{ minWidth: '280px', marginRight: '25px' }}>
               <Link to={`/details/tv/${item.id}`}>
-                <div className="card text-white" style={{ borderRadius: '10px', backgroundColor: '#000' }}>
-                  <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name} style={{ borderRadius: '10px 10px 0 0' }} />
+                <div className="card text-white" style={{ borderRadius: '12px', overflow: 'hidden', backgroundColor: '#111' }}>
+                  <img className="img-fluid" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name} style={{ borderRadius: '12px 12px 0 0', transition: 'transform 0.3s', width: '100%', height: '400px', objectFit: 'cover' }} />
                 </div>
               </Link>
             </div>
           ))}
         </div>
         {sortedSeries.length > cardsPerPage && (
-          <button className="btn position-absolute top-50 end-0 translate-middle-y" onClick={handleNextSeries} disabled={seriesIndex * cardsPerPage + cardsPerPage >= sortedSeries.length} style={{ zIndex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' }}>&gt;</button>
+          <button className="btn arrow arrow-right" onClick={handleNextSeries} disabled={seriesIndex * cardsPerPage + cardsPerPage >= sortedSeries.length} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: '-20px', zIndex: 10, backgroundColor: '#00bcd4', color: '#fff', padding: '12px 18px', fontSize: '1.8rem', borderRadius: '12px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', transition: 'background-color 0.3s, transform 0.3s', cursor: 'pointer' }}>{'→'}</button>
         )}
       </div>
 
-      <h2 className="text-info mt-5">Top Movies</h2>
-      <div className="position-relative" style={{ width: '80%', margin: '0 auto' }}>
+      <h2 className="text-info mb-4 mt-5" style={{ fontSize: '2rem', fontWeight: '600', marginTop: '20px' }}>Top Movies</h2>
+      <div className="carousel-container" style={{ position: 'relative', display: 'flex', overflow: 'hidden', width: '90%', margin: '0 auto', maxWidth: '1400px' }}>
         {sortedTopMovies.length > cardsPerPage && (
-          <button className="btn position-absolute top-50 start-0 translate-middle-y" onClick={handlePrevTopMovies} disabled={topMovieIndex === 0} style={{ zIndex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' }}>&lt;</button>
+          <button className="btn arrow arrow-left" onClick={handlePrevTopMovies} disabled={topMovieIndex === 0} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '-20px', zIndex: 10, backgroundColor: '#00bcd4', color: '#fff', padding: '12px 18px', fontSize: '1.8rem', borderRadius: '12px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', transition: 'background-color 0.3s, transform 0.3s', cursor: 'pointer' }}>{'←'}</button>
         )}
-        <div className="row flex-nowrap overflow-hidden">
+        <div className="row flex-nowrap overflow-auto" style={{ padding: '0 40px' }}>
           {sortedTopMovies.slice(topMovieIndex * cardsPerPage, (topMovieIndex + 1) * cardsPerPage).map(item => (
-            <div key={item.id} className="col-md-3 mb-4">
-              <div className="card text-white" style={{ borderRadius: '10px', backgroundColor: '#000' }}>
-                <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} style={{ borderRadius: '10px 10px 0 0' }} />
-                <div className="card-body" style={{ backgroundColor: '#000' }}>
-                  <h5>{item.title}</h5>
-                  <p>
+            <div key={item.id} className="col-md-3 mb-4" style={{ minWidth: '280px', marginRight: '25px' }}>
+              <div className="card text-white" style={{ borderRadius: '12px', overflow: 'hidden', backgroundColor: '#111' }}>
+                <img className="img-fluid" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title} style={{ borderRadius: '12px 12px 0 0', transition: 'transform 0.3s', width: '100%', height: '400px', objectFit: 'cover' }} />
+                <div className="card-body p-3" style={{ backgroundColor: '#111' }}>
+                  <h5 style={{ fontSize: '1.2rem', fontWeight: '500', marginBottom: '10px' }}>{item.title}</h5>
+                  <p style={{ fontSize: '0.9rem', marginBottom: '10px' }}>
                     Rating: {item.vote_average.toFixed(1)} {' '}
                     <span style={{ color: 'gold' }}>
                       {[...Array(5)].map((_, index) => {
@@ -179,30 +179,30 @@ const Home = () => {
                       })}
                     </span>
                   </p>
-                  <Link to={`/details/movie/${item.id}`} className="btn btn-info">Details</Link>
+                  <Link to={`/details/movie/${item.id}`} className="btn btn-info" style={{ padding: '6px 12px', fontSize: '0.9rem' }}>Details</Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
         {sortedTopMovies.length > cardsPerPage && (
-          <button className="btn position-absolute top-50 end-0 translate-middle-y" onClick={handleNextTopMovies} disabled={topMovieIndex * cardsPerPage + cardsPerPage >= sortedTopMovies.length} style={{ zIndex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' }}>&gt;</button>
+          <button className="btn arrow arrow-right" onClick={handleNextTopMovies} disabled={topMovieIndex * cardsPerPage + cardsPerPage >= sortedTopMovies.length} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: '-20px', zIndex: 10, backgroundColor: '#00bcd4', color: '#fff', padding: '12px 18px', fontSize: '1.8rem', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', transition: 'background-color 0.3s, transform 0.3s', cursor: 'pointer' }}>{'←'}</button>
         )}
       </div>
 
-      <h2 className="text-info mt-5">Top Series</h2>
-      <div className="position-relative" style={{ width: '80%', margin: '0 auto' }}>
+      <h2 className="text-info mb-4 mt-5" style={{ fontSize: '2rem', fontWeight: '600', marginTop: '20px' }}>Top Series</h2>
+      <div className="carousel-container" style={{ position: 'relative', display: 'flex', overflow: 'hidden', width: '90%', margin: '0 auto', maxWidth: '1400px' }}>
         {sortedTopSeries.length > cardsPerPage && (
-          <button className="btn position-absolute top-50 start-0 translate-middle-y" onClick={handlePrevTopSeries} disabled={topSeriesIndex === 0} style={{ zIndex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' }}>&lt;</button>
+          <button className="btn arrow arrow-left" onClick={handlePrevTopSeries} disabled={topSeriesIndex === 0} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '-20px', zIndex: 10, backgroundColor: '#00bcd4', color: '#fff', padding: '12px 18px', fontSize: '1.8rem', borderRadius: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', transition: 'background-color 0.3s, transform 0.3s', cursor: 'pointer' }}>{'→'}</button>
         )}
-        <div className="row flex-nowrap overflow-hidden">
+        <div className="row flex-nowrap overflow-auto" style={{ padding: '0 40px' }}>
           {sortedTopSeries.slice(topSeriesIndex * cardsPerPage, (topSeriesIndex + 1) * cardsPerPage).map(item => (
-            <div key={item.id} className="col-md-3 mb-4">
-              <div className="card text-white" style={{ borderRadius: '10px', backgroundColor: '#000' }}>
-                <img src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name} style={{ borderRadius: '10px 10px 0 0' }} />
-                <div className="card-body" style={{ backgroundColor: '#000' }}>
-                  <h5>{item.name}</h5>
-                  <p>
+            <div key={item.id} className="col-md-3 mb-4" style={{ minWidth: '280px', marginRight: '25px' }}>
+              <div className="card text-white" style={{ borderRadius: '12px', overflow: 'hidden', backgroundColor: '#111' }}>
+                <img className="img-fluid" src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.name} style={{ borderRadius: '12px 12px 0 0', transition: 'transform 0.3s', width: '100%', height: '400px', objectFit: 'cover' }} />
+                <div className="card-body p-3" style={{ backgroundColor: '#111' }}>
+                  <h5 style={{ fontSize: '1.2rem', fontWeight: '500', marginBottom: '10px' }}>{item.name}</h5>
+                  <p style={{ fontSize: '0.9rem', marginBottom: '10px' }}>
                     Rating: {item.vote_average.toFixed(1)} {' '}
                     <span style={{ color: 'gold' }}>
                       {[...Array(5)].map((_, index) => {
@@ -217,14 +217,14 @@ const Home = () => {
                       })}
                     </span>
                   </p>
-                  <Link to={`/details/tv/${item.id}`} className="btn btn-info">Details</Link>
+                  <Link to={`/details/tv/${item.id}`} className="btn btn-info" style={{ padding: '6px 12px', fontSize: '0.9rem' }}>Details</Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
         {sortedTopSeries.length > cardsPerPage && (
-          <button className="btn position-absolute top-50 end-0 translate-middle-y" onClick={handleNextTopSeries} disabled={topSeriesIndex * cardsPerPage + cardsPerPage >= sortedTopSeries.length} style={{ zIndex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' }}>&gt;</button>
+          <button className="btn arrow arrow-right" onClick={handleNextTopSeries} disabled={topSeriesIndex * cardsPerPage + cardsPerPage >= sortedTopSeries.length} style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: '-20px', zIndex: 10, backgroundColor: '#00bcd4', color: '#fff', padding: '12px 18px', fontSize: '1.8rem', borderRadius: '12px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', transition: 'background-color 0.3s, transform 0.3s', cursor: 'pointer' }}>{'→'}</button>
         )}
       </div>
     </div>
