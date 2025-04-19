@@ -317,7 +317,7 @@ const SeriesDetails = () => {
 
                 <h3 className="text-info mb-3" style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Media</h3>
                 <div className="mb-4">
-                  <div className="d-flex mb-3" style={{ gap: '10px' }}>
+                  <div className="d-flex mb-3" style={{ gap: '10px', flexWrap: 'wrap' }}>
                     <button
                       className={`btn me-2 ${activeTab === 'videos' ? 'btn-info' : 'btn-outline-info'}`}
                       onClick={() => setActiveTab('videos')}
@@ -337,7 +337,7 @@ const SeriesDetails = () => {
                       Backdrops ({images?.backdrops?.length || 0})
                     </button>
                     <button
-                      className={`btn ${activeTab === 'posters' ? 'btn-info' : 'btn-outline-info'}`}
+                      className={`btn me-2 ${activeTab === 'posters' ? 'btn-info' : 'btn-outline-info'}`}
                       onClick={() => setActiveTab('posters')}
                       style={{ borderRadius: '8px', padding: '5px 15px', transition: 'all 0.3s' }}
                       onMouseOver={(e) => { if (activeTab !== 'posters') e.target.style.backgroundColor = '#17a2b8'; }}
@@ -352,8 +352,8 @@ const SeriesDetails = () => {
                       {videos?.slice(0, 2).map(video => (
                         <div key={video.id} className="me-3 text-center">
                           <iframe
-                            width="200"
-                            height="150"
+                            width="300"
+                            height="300"
                             src={`https://www.youtube.com/embed/${video.key}`}
                             title={video.name}
                             frameBorder="0"
@@ -367,36 +367,60 @@ const SeriesDetails = () => {
                   )}
 
                   {activeTab === 'backdrops' && (
-                    <div className="d-flex overflow-auto mb-3" style={{ gap: '15px' }}>
-                      {images?.backdrops?.length > 0 ? (
-                        images.backdrops.slice(0, 4).map(image => (
-                          <img
-                            key={image.file_path}
-                            src={image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://via.placeholder.com/200x112'}
-                            alt="Backdrop"
-                            style={{ width: '200px', height: '112px', borderRadius: '10px', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', objectFit: 'cover' }}
-                          />
-                        ))
-                      ) : (
-                        <p style={{ textAlign: 'center', color: '#ccc', fontSize: '0.9rem' }}>No backdrops available</p>
-                      )}
+                    <div>
+                      <div className="d-flex overflow-auto mb-3" style={{ gap: '15px' }}>
+                        {images?.backdrops?.length > 0 ? (
+                          images.backdrops.slice(0, 4).map(image => (
+                            <img
+                              key={image.file_path}
+                              src={image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://via.placeholder.com/200x112'}
+                              alt="Backdrop"
+                              style={{ width: '300px', height: '300px', borderRadius: '10px', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', objectFit: 'cover' }}
+                            />
+                          ))
+                        ) : (
+                          <p style={{ textAlign: 'center', color: '#ccc', fontSize: '0.9rem' }}>No backdrops available</p>
+                        )}
+                      </div>
+                      <Link to={`/series/${id}/backdrops`}>
+                        <button
+                          className="btn btn-info mt-2"
+                          style={{ padding: '5px 10px', fontSize: '0.8rem', boxShadow: '0 3px 6px rgba(0, 123, 255, 0.4)', transition: 'all 0.3s' }}
+                          onMouseOver={(e) => { e.target.style.backgroundColor = '#17a2b8'; e.target.style.transform = 'scale(1.05)'; }}
+                          onMouseOut={(e) => { e.target.style.backgroundColor = '#007bff'; e.target.style.transform = 'scale(1)'; }}
+                        >
+                          View More
+                        </button>
+                      </Link>
                     </div>
                   )}
 
                   {activeTab === 'posters' && (
-                    <div className="d-flex overflow-auto mb-3" style={{ gap: '15px' }}>
-                      {images?.posters?.length > 0 ? (
-                        images.posters.slice(0, 4).map(image => (
-                          <img
-                            key={image.file_path}
-                            src={image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://via.placeholder.com/100x150'}
-                            alt="Poster"
-                            style={{ width: '100px', height: '150px', borderRadius: '10px', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', objectFit: 'cover' }}
-                          />
-                        ))
-                      ) : (
-                        <p style={{ textAlign: 'center', color: '#ccc', fontSize: '0.9rem' }}>No posters available</p>
-                      )}
+                    <div>
+                      <div className="d-flex overflow-auto mb-3" style={{ gap: '15px' }}>
+                        {images?.posters?.length > 0 ? (
+                          images.posters.slice(0, 4).map(image => (
+                            <img
+                              key={image.file_path}
+                              src={image.file_path ? `https://image.tmdb.org/t/p/w500${image.file_path}` : 'https://via.placeholder.com/100x150'}
+                              alt="Poster"
+                              style={{ width: '300px', height: '300px', borderRadius: '10px', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', objectFit: 'cover' }}
+                            />
+                          ))
+                        ) : (
+                          <p style={{ textAlign: 'center', color: '#ccc', fontSize: '0.9rem' }}>No posters available</p>
+                        )}
+                      </div>
+                      <Link to={`/series/${id}/posters`}>
+                        <button
+                          className="btn btn-info mt-2"
+                          style={{ padding: '5px 10px', fontSize: '0.8rem', boxShadow: '0 3px 6px rgba(0, 123, 255, 0.4)', transition: 'all 0.3s' }}
+                          onMouseOver={(e) => { e.target.style.backgroundColor = '#17a2b8'; e.target.style.transform = 'scale(1.05)'; }}
+                          onMouseOut={(e) => { e.target.style.backgroundColor = '#007bff'; e.target.style.transform = 'scale(1)'; }}
+                        >
+                          View More
+                        </button>
+                      </Link>
                     </div>
                   )}
                 </div>

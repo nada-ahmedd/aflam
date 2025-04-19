@@ -10,6 +10,10 @@ import SeriesDetails from './components/SeriesDetails';
 import PersonDetails from './components/PersonDetails';
 import SearchResults from './components/SearchResults';
 import CastCrew from './components/CastCrew';
+import MoviePosters from './components/MoviePosters'; 
+import MovieBackdrops from './components/MovieBackdrops'; 
+import SeriesPosters from './components/SeriesPosters';
+import SeriesBackdrops from './components/SeriesBackdrops';
 import Footer from './components/Footer';
 
 const App = () => {
@@ -26,6 +30,10 @@ const App = () => {
             <Route path="/person/:id" element={<PersonDetails />} />
             <Route path="/search/:type/:query" element={<SearchResults />} />
             <Route path="/cast-crew/:type/:id" element={<CastCrew />} />
+            <Route path="/movie/:id/posters" element={<MoviePosters />} />
+            <Route path="/movie/:id/backdrops" element={<MovieBackdrops />} />
+            <Route path="/series/:id/posters" element={<SeriesPosters />} />
+<Route path="/series/:id/backdrops" element={<SeriesBackdrops />} />
           </Routes>
         </main>
         <Footer /> 

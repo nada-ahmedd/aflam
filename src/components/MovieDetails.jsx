@@ -299,8 +299,8 @@ const MovieDetails = () => {
                           onMouseOver={(e) => (e.target.style.transform = 'scale(1.02)')}
                           onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}>
                           <iframe
-                            width="200"
-                            height="150"
+                            width="300"
+                            height="300"
                             src={`https://www.youtube.com/embed/${video.key}`}
                             title={video.name}
                             frameBorder="0"
@@ -316,16 +316,25 @@ const MovieDetails = () => {
                   {activeTab === 'backdrops' && (
                     <div className="d-flex overflow-auto mb-3" style={{ gap: '15px' }}>
                       {images?.backdrops?.length > 0 ? (
-                        images.backdrops.slice(0, 4).map(image => (
-                          <img
-                            key={image.file_path}
-                            src={image.file_path ? `https://image.tmdb.org/t/p/w300${image.file_path}` : 'https://via.placeholder.com/150x85'}
-                            alt="Backdrop"
-                            style={{ width: '150px', height: '85px', borderRadius: '10px', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', objectFit: 'cover', transition: 'transform 0.3s' }}
-                            onMouseOver={(e) => (e.target.style.transform = 'scale(1.05)')}
-                            onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
-                          />
-                        ))
+                        <>
+                          {images.backdrops.slice(0, 4).map(image => (
+                            <img
+                              key={image.file_path}
+                              src={image.file_path ? `https://image.tmdb.org/t/p/w300${image.file_path}` : 'https://via.placeholder.com/150x85'}
+                              alt="Backdrop"
+                              style={{ width: '300px', height: '300px', borderRadius: '10px', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', objectFit: 'cover', transition: 'transform 0.3s' }}
+                              onMouseOver={(e) => (e.target.style.transform = 'scale(1.05)')}
+                              onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
+                            />
+                          ))}
+                          {images.backdrops.length > 4 && (
+                            <Link to={`/movie/${id}/backdrops`} className="btn btn-info ms-2" style={{ padding: '6px 15px', fontSize: '0.9rem', boxShadow: '0 3px 6px rgba(0, 123, 255, 0.4)', transition: 'all 0.3s' }}
+                              onMouseOver={(e) => { e.target.style.backgroundColor = '#17a2b8'; e.target.style.transform = 'scale(1.05)'; }}
+                              onMouseOut={(e) => { e.target.style.backgroundColor = '#007bff'; e.target.style.transform = 'scale(1)'; }}>
+                              View More
+                            </Link>
+                          )}
+                        </>
                       ) : (
                         <p style={{ textAlign: 'center', color: '#ccc', fontSize: '0.9rem' }}>No backdrops available</p>
                       )}
@@ -335,16 +344,25 @@ const MovieDetails = () => {
                   {activeTab === 'posters' && (
                     <div className="d-flex overflow-auto mb-3" style={{ gap: '15px' }}>
                       {images?.posters?.length > 0 ? (
-                        images.posters.slice(0, 4).map(image => (
-                          <img
-                            key={image.file_path}
-                            src={image.file_path ? `https://image.tmdb.org/t/p/w200${image.file_path}` : 'https://via.placeholder.com/100x150'}
-                            alt="Poster"
-                            style={{ width: '100px', height: '150px', borderRadius: '10px', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', objectFit: 'cover', transition: 'transform 0.3s' }}
-                            onMouseOver={(e) => (e.target.style.transform = 'scale(1.05)')}
-                            onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
-                          />
-                        ))
+                        <>
+                          {images.posters.slice(0, 4).map(image => (
+                            <img
+                              key={image.file_path}
+                              src={image.file_path ? `https://image.tmdb.org/t/p/w200${image.file_path}` : 'https://via.placeholder.com/100x150'}
+                              alt="Poster"
+                              style={{ width: '300px', height: '300px', borderRadius: '10px', boxShadow: '0 3px 6px rgba(0, 0, 0, 0.3)', objectFit: 'cover', transition: 'transform 0.3s' }}
+                              onMouseOver={(e) => (e.target.style.transform = 'scale(1.05)')}
+                              onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
+                            />
+                          ))}
+                          {images.posters.length > 4 && (
+                            <Link to={`/movie/${id}/posters`} className="btn btn-info ms-2" style={{ padding: '6px 15px', fontSize: '0.9rem', boxShadow: '0 3px 6px rgba(0, 123, 255, 0.4)', transition: 'all 0.3s' }}
+                              onMouseOver={(e) => { e.target.style.backgroundColor = '#17a2b8'; e.target.style.transform = 'scale(1.05)'; }}
+                              onMouseOut={(e) => { e.target.style.backgroundColor = '#007bff'; e.target.style.transform = 'scale(1)'; }}>
+                              View More
+                            </Link>
+                          )}
+                        </>
                       ) : (
                         <p style={{ textAlign: 'center', color: '#ccc', fontSize: '0.9rem' }}>No posters available</p>
                       )}
